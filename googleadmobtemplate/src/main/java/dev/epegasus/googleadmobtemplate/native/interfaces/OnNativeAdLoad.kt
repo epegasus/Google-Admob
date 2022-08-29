@@ -1,4 +1,4 @@
-package com.pdfapp.pdfreader.allpdf.pdfviewer.helper.interfaces.admob
+package dev.epegasus.googleadmobtemplate.native.interfaces
 
 import com.google.android.gms.ads.nativead.NativeAd
 

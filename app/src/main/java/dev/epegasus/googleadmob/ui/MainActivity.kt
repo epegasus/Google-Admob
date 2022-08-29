@@ -1,41 +1,39 @@
-package dev.epegasus.googleadmob
+package dev.epegasus.googleadmob.ui
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.google.android.gms.ads.nativead.NativeAd
-import com.pdfapp.pdfreader.allpdf.pdfviewer.helper.interfaces.admob.InterstitialOnShowCallBack
-import com.pdfapp.pdfreader.allpdf.pdfviewer.helper.interfaces.admob.OnNativeAdLoad
-import dev.epegasus.googleadmob.adsconfig.InterstitialAdsConfig
-import dev.epegasus.googleadmob.adsconfig.NativeAdsConfig
+import dev.epegasus.googleadmob.R
 import dev.epegasus.googleadmob.databinding.ActivityMainBinding
-import dev.epegasus.googleadmob.listeners.InterstitialOnLoadCallBack
-import dev.epegasus.googleadmob.listeners.OnResponseListener
+import dev.epegasus.googleadmob.helper.adsconfig.*
+import dev.epegasus.googleadmob.helper.managers.InternetHandler
+import dev.epegasus.googleadmob.helper.utils.SharedPreferencesUtils
+import dev.epegasus.googleadmobtemplate.interstitial.InterstitialAdsConfig
+import dev.epegasus.googleadmobtemplate.interstitial.interfaces.InterstitialOnLoadCallBack
+import dev.epegasus.googleadmobtemplate.interstitial.interfaces.InterstitialOnShowCallBack
+import dev.epegasus.googleadmobtemplate.interstitial.interfaces.OnInterstitialResponseListener
 
 class MainActivity : AppCompatActivity() {
 
     private val binding by lazy { ActivityMainBinding.inflate(layoutInflater) }
-    private lateinit var nativeAdsConfig: NativeAdsConfig
-    private lateinit var interstitialAdsConfig: InterstitialAdsConfig
+    private val nativeAdsConfig by lazy { NativeAdsConfig(this) }
+    private val interstitialAdsConfig by lazy { InterstitialAdsConfig(this) }
+    private val sharedPreferences by lazy { SharedPreferencesUtils(this) }
+    private val internetHandler by lazy { InternetHandler(this) }
 
     private var nativeAd: NativeAd? = null
-
-    private fun initializations() {
-        nativeAdsConfig = NativeAdsConfig(this)
-        interstitialAdsConfig = InterstitialAdsConfig(this)
-    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
 
-        initializations()
         loadNativeAd()
         loadInterstitialAd()
     }
 
     private fun loadNativeAd() {
         val nativeAdID = resources.getString(R.string.admob_native_id)
-        nativeAdsConfig.checkNativeAd(nativeAdID, binding.clNativeContainer, binding.incNativeLoadingSplash.root, binding.tnvTemplate, object : OnResponseListener {
+        nativeAdsConfig.checkNativeAd(nativeAdID, binding.clNativeContainer, binding.incNativeLoadingSplash.root, binding.tnvTemplate, object : OnNativeResponseListener {
             override fun onResponse() {
 
             }
@@ -49,7 +47,7 @@ class MainActivity : AppCompatActivity() {
     private fun loadInterstitialAd() {
         val interAdId = resources.getString(R.string.admob_interstitial_id)
         val isRemoteConfig = true
-        interstitialAdsConfig.checkInterstitialAd(interAdId, isRemoteConfig, object : InterstitialOnLoadCallBack {
+        interstitialAdsConfig.checkInterstitialAd(interAdId, internetHandler.isInternetConnected, isRemoteConfig, sharedPreferences.isBillingRequired, object : InterstitialOnLoadCallBack {
             override fun onAdFailedToLoad() {
 
             }
@@ -57,7 +55,7 @@ class MainActivity : AppCompatActivity() {
             override fun onAdLoaded() {
                 showInterstitial()
             }
-        }, object : OnResponseListener {
+        }, object : OnInterstitialResponseListener {
             override fun onResponse() {
 
             }

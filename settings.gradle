@@ -12,6 +12,6 @@ dependencyResolutionManagement {
         mavenCentral()
     }
 }
-rootProject.name = "GoogleAdMob"
 include ':app'
 include ':nativetemplates'
+include ':googleadmobtemplate'

@@ -1,4 +1,4 @@
-package dev.epegasus.googleadmob.adsconfig
+package dev.epegasus.googleadmobtemplate.interstitial
 
 import android.app.Activity
 import android.content.Context
@@ -8,21 +8,19 @@ import com.google.android.gms.ads.FullScreenContentCallback
 import com.google.android.gms.ads.LoadAdError
 import com.google.android.gms.ads.interstitial.InterstitialAd
 import com.google.android.gms.ads.interstitial.InterstitialAdLoadCallback
-import com.pdfapp.pdfreader.allpdf.pdfviewer.helper.interfaces.admob.InterstitialOnShowCallBack
-import dev.epegasus.googleadmob.listeners.InterstitialOnLoadCallBack
-import dev.epegasus.googleadmob.listeners.OnResponseListener
-import dev.epegasus.googleadmob.utils.GeneralUtils.isInternetConnected
-import dev.epegasus.googleadmob.utils.LogUtils.showAdsLog
-import dev.epegasus.googleadmob.utils.SharedPreferencesUtils.getIsBillingPurchased
+import dev.epegasus.googleadmobtemplate.LogUtils.showAdsLog
+import dev.epegasus.googleadmobtemplate.interstitial.interfaces.InterstitialOnLoadCallBack
+import dev.epegasus.googleadmobtemplate.interstitial.interfaces.InterstitialOnShowCallBack
+import dev.epegasus.googleadmobtemplate.interstitial.interfaces.OnInterstitialResponseListener
 
 class InterstitialAdsConfig(private val context: Context) {
 
-    private var interstitialAd: InterstitialAd? = null
     private var adRequest: AdRequest = AdRequest.Builder().build()
+    private var interstitialAd: InterstitialAd? = null
     private var isLoadingAd = false
 
-    fun checkInterstitialAd(interstitialAdID: String, isRemoteConfigActive: Boolean, listener: InterstitialOnLoadCallBack, onResponseListener: OnResponseListener) {
-        if (isInternetConnected(context) && isRemoteConfigActive && !getIsBillingPurchased(context)) {
+    fun checkInterstitialAd(interstitialAdID: String, isInternetConnected: Boolean, isRemoteConfigActive: Boolean, isBillingRequired: Boolean, listener: InterstitialOnLoadCallBack, onResponseListener: OnInterstitialResponseListener) {
+        if (isInternetConnected && isRemoteConfigActive && isBillingRequired) {
             if (!isLoadingAd && interstitialAd == null) {
                 isLoadingAd = true
                 InterstitialAd.load(context, interstitialAdID, adRequest, object : InterstitialAdLoadCallback() {

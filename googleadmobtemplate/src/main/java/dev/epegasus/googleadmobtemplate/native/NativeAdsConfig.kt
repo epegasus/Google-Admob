@@ -1,30 +1,20 @@
-package dev.epegasus.googleadmob.adsconfig
+package dev.epegasus.googleadmobtemplate.native
 
-import android.app.Activity
 import android.content.Context
-import android.view.View
 import android.widget.LinearLayout
 import androidx.constraintlayout.widget.ConstraintLayout
-import com.google.android.ads.nativetemplates.TemplateView
-import com.google.android.gms.ads.AdListener
-import com.google.android.gms.ads.AdLoader
-import com.google.android.gms.ads.LoadAdError
-import com.google.android.gms.ads.admanager.AdManagerAdRequest
-import com.pdfapp.pdfreader.allpdf.pdfviewer.helper.interfaces.admob.OnNativeAdLoad
-import dev.epegasus.googleadmob.listeners.OnResponseListener
-import dev.epegasus.googleadmob.utils.GeneralUtils.isInternetConnected
-import dev.epegasus.googleadmob.utils.LogUtils.showAdsLog
-import dev.epegasus.googleadmob.utils.SharedPreferencesUtils.getIsBillingPurchased
+import dev.epegasus.googleadmobtemplate.native.interfaces.OnNativeAdLoad
+import dev.epegasus.googleadmobtemplate.native.interfaces.OnNativeResponseListener
 
 class NativeAdsConfig(private val context: Context) {
 
-    fun checkNativeAd(nativeAdID: String, cl_ad_container: ConstraintLayout, ll_loading: LinearLayout, templateView: TemplateView, onResponseListener: OnResponseListener, onNativeAdLoad: OnNativeAdLoad) {
-        val isRemoteConfig = true
-        if (isInternetConnected(context) && isRemoteConfig && !getIsBillingPurchased(context)) {
+    fun checkNativeAd(nativeAdID: String, cl_ad_container: ConstraintLayout, ll_loading: LinearLayout, templateView: String, onResponseListener: OnNativeResponseListener, onNativeAdLoad: OnNativeAdLoad) {
+        /*val isRemoteConfig = true
+        if (isInternetConnected(context) && isRemoteConfig && sharedPreferences.isBillingRequired) {
             val adLoader: AdLoader = AdLoader.Builder(context, nativeAdID)
                 .forNativeAd { nativeAd ->
                     if ((context as Activity).isDestroyed) {
-                        showAdsLog(context, "checkSplashNativeAd", "isDestroyed", "Destroying Native, fragment not found")
+                        showAdsLog(context, "checkNativeAd", "isDestroyed", "Destroying Native, fragment not found")
                         nativeAd.destroy()
                         return@forNativeAd
                     }
@@ -34,7 +24,7 @@ class NativeAdsConfig(private val context: Context) {
                 .withAdListener(object : AdListener() {
                     override fun onAdFailedToLoad(loadAdError: LoadAdError) {
                         super.onAdFailedToLoad(loadAdError)
-                        showAdsLog(context, "checkSplashNativeAd", "onAdFailedToLoad", loadAdError.message)
+                        showAdsLog(context, "checkNativeAd", "onAdFailedToLoad", loadAdError.message)
                         cl_ad_container.removeAllViews()
                         cl_ad_container.visibility = View.GONE
                         onResponseListener.onResponse()
@@ -42,7 +32,7 @@ class NativeAdsConfig(private val context: Context) {
 
                     override fun onAdLoaded() {
                         super.onAdLoaded()
-                        showAdsLog(context, "checkSplashNativeAd", "onAdLoaded", "loaded")
+                        showAdsLog(context, "checkNativeAd", "onAdLoaded", "loaded")
                         ll_loading.visibility = View.GONE
                         templateView.visibility = View.VISIBLE
                         cl_ad_container.visibility = View.VISIBLE
@@ -52,10 +42,10 @@ class NativeAdsConfig(private val context: Context) {
                 .build()
             adLoader.loadAd(AdManagerAdRequest.Builder().build())
         } else {
-            showAdsLog(context, "checkSplashNativeAd", "else", "called")
+            showAdsLog(context, "checkNativeAd", "else", "called")
             cl_ad_container.removeAllViews()
             cl_ad_container.visibility = View.GONE
             onResponseListener.onResponse()
-        }
+        }*/
     }
 }

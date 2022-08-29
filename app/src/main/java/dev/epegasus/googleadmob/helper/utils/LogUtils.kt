@@ -1,4 +1,4 @@
-package dev.epegasus.googleadmob.utils
+package dev.epegasus.googleadmob.helper.utils
 
 import android.app.Activity
 import android.content.Context

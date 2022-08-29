@@ -18,11 +18,10 @@
         tools:replace="android:supportsRtl"
         tools:targetApi="31">
         <activity
-            android:name="dev.epegasus.googleadmob.MainActivity"
+            android:name="dev.epegasus.googleadmob.ui.MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
