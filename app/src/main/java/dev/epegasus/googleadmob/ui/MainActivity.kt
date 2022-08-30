@@ -5,13 +5,15 @@ import androidx.appcompat.app.AppCompatActivity
 import com.google.android.gms.ads.nativead.NativeAd
 import dev.epegasus.googleadmob.R
 import dev.epegasus.googleadmob.databinding.ActivityMainBinding
-import dev.epegasus.googleadmob.helper.adsconfig.*
 import dev.epegasus.googleadmob.helper.managers.InternetHandler
 import dev.epegasus.googleadmob.helper.utils.SharedPreferencesUtils
 import dev.epegasus.googleadmobtemplate.interstitial.InterstitialAdsConfig
 import dev.epegasus.googleadmobtemplate.interstitial.interfaces.InterstitialOnLoadCallBack
 import dev.epegasus.googleadmobtemplate.interstitial.interfaces.InterstitialOnShowCallBack
 import dev.epegasus.googleadmobtemplate.interstitial.interfaces.OnInterstitialResponseListener
+import dev.epegasus.googleadmobtemplate.native.NativeAdsConfig
+import dev.epegasus.googleadmobtemplate.native.interfaces.OnNativeAdLoad
+import dev.epegasus.googleadmobtemplate.native.interfaces.OnNativeResponseListener
 
 class MainActivity : AppCompatActivity() {
 
@@ -33,7 +35,7 @@ class MainActivity : AppCompatActivity() {
 
     private fun loadNativeAd() {
         val nativeAdID = resources.getString(R.string.admob_native_id)
-        nativeAdsConfig.checkNativeAd(nativeAdID, binding.clNativeContainer, binding.incNativeLoadingSplash.root, binding.tnvTemplate, object : OnNativeResponseListener {
+        nativeAdsConfig.checkNativeAd(nativeAdID, internetHandler.isInternetConnected, true, sharedPreferences.isBillingRequired, binding.clNativeContainer, binding.incNativeLoadingSplash.root, object : OnNativeResponseListener {
             override fun onResponse() {
 
             }

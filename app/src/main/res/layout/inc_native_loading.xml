@@ -3,16 +3,16 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:gravity="center"
-    android:orientation="vertical"
-    android:paddingVertical="20dp">
+    android:background="@drawable/ads_outline_shape"
+    android:orientation="vertical">
 
     <ProgressBar
-        android:id="@+id/progressBar_loading_native"
+        android:id="@+id/progressBar_Native_Loading"
         android:layout_width="24dp"
         android:layout_height="24dp" />
 
     <TextView
-        android:id="@+id/tv_loading_native"
+        android:id="@+id/tv_loading_Native_Loading"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"

@@ -8,6 +8,7 @@ android {
 
     buildFeatures {
         viewBinding true
+        dataBinding true
     }
 
     defaultConfig {
@@ -54,7 +55,6 @@ android {
 dependencies {
 
     implementation project(path: ':googleadmobtemplate')
-    implementation project(path: ':nativetemplates')
 
     implementation 'androidx.core:core-ktx:1.8.0'
     implementation 'androidx.appcompat:appcompat:1.5.0'
@@ -66,4 +66,9 @@ dependencies {
 
     // Admob ads
     implementation 'com.google.android.gms:play-services-ads:21.1.0'
+
+    // sdp & ssp
+    implementation 'com.intuit.sdp:sdp-android:1.0.6'
+    implementation 'com.intuit.ssp:ssp-android:1.0.6'
+
 }

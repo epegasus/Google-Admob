@@ -1,16 +1,31 @@
 package dev.epegasus.googleadmobtemplate.native
 
+import android.app.Activity
 import android.content.Context
+import android.view.LayoutInflater
+import android.view.View
+import android.widget.FrameLayout
 import android.widget.LinearLayout
-import androidx.constraintlayout.widget.ConstraintLayout
+import com.google.android.gms.ads.AdListener
+import com.google.android.gms.ads.AdLoader
+import com.google.android.gms.ads.LoadAdError
+import com.google.android.gms.ads.admanager.AdManagerAdRequest
+import com.google.android.gms.ads.nativead.NativeAd
+import dev.epegasus.googleadmobtemplate.LogUtils.showAdsLog
+import dev.epegasus.googleadmobtemplate.databinding.AdmobNativeMediumBinding
 import dev.epegasus.googleadmobtemplate.native.interfaces.OnNativeAdLoad
 import dev.epegasus.googleadmobtemplate.native.interfaces.OnNativeResponseListener
 
 class NativeAdsConfig(private val context: Context) {
 
-    fun checkNativeAd(nativeAdID: String, cl_ad_container: ConstraintLayout, ll_loading: LinearLayout, templateView: String, onResponseListener: OnNativeResponseListener, onNativeAdLoad: OnNativeAdLoad) {
-        /*val isRemoteConfig = true
-        if (isInternetConnected(context) && isRemoteConfig && sharedPreferences.isBillingRequired) {
+    fun checkNativeAd(
+        nativeAdID: String, isInternetConnected: Boolean, isRemoteConfig: Boolean, isBillingRequired: Boolean,
+        cl_ad_container: FrameLayout, ll_loading: LinearLayout,
+        onResponseListener: OnNativeResponseListener,
+        onNativeAdLoad: OnNativeAdLoad,
+    ) {
+        val binding = AdmobNativeMediumBinding.inflate(LayoutInflater.from(context))
+        if (isInternetConnected && isRemoteConfig && isBillingRequired) {
             val adLoader: AdLoader = AdLoader.Builder(context, nativeAdID)
                 .forNativeAd { nativeAd ->
                     if ((context as Activity).isDestroyed) {
@@ -18,7 +33,7 @@ class NativeAdsConfig(private val context: Context) {
                         nativeAd.destroy()
                         return@forNativeAd
                     }
-                    templateView.setNativeAd(nativeAd)
+                    populateLayout(cl_ad_container, binding, nativeAd)
                     onNativeAdLoad.onNativeAdLoad(nativeAd)
                 }
                 .withAdListener(object : AdListener() {
@@ -34,8 +49,6 @@ class NativeAdsConfig(private val context: Context) {
                         super.onAdLoaded()
                         showAdsLog(context, "checkNativeAd", "onAdLoaded", "loaded")
                         ll_loading.visibility = View.GONE
-                        templateView.visibility = View.VISIBLE
-                        cl_ad_container.visibility = View.VISIBLE
                         onResponseListener.onResponse()
                     }
                 })
@@ -46,6 +59,45 @@ class NativeAdsConfig(private val context: Context) {
             cl_ad_container.removeAllViews()
             cl_ad_container.visibility = View.GONE
             onResponseListener.onResponse()
-        }*/
+        }
+    }
+
+    private fun populateLayout(clAdContainer: FrameLayout, binding: AdmobNativeMediumBinding, nativeAd: NativeAd) {
+        binding.apply {
+            root.apply {
+                // refer all our views to NativeAdView
+                mediaView = mvMedia
+                headlineView = tvTitle
+                bodyView = tvBody
+                iconView = ifvAdIcon
+                advertiserView = tvAd
+                callToActionView = btnAction
+
+                setNativeAd(nativeAd)
+            }
+
+            // Title & Body
+            tvTitle.text = nativeAd.headline
+            tvBody.text = nativeAd.body
+
+            // Ad
+            nativeAd.advertiser?.let { tvAd.text = it }
+
+            // Icon
+            nativeAd.icon?.let {
+                ifvAdIcon.setImageDrawable(it.drawable)
+            } ?: kotlin.run {
+                ifvAdIcon.visibility = View.GONE
+            }
+
+            // Button
+            nativeAd.callToAction?.let {
+                btnAction.text = it
+            } ?: kotlin.run {
+                btnAction.visibility = View.GONE
+            }
+        }
+        clAdContainer.removeAllViews()
+        clAdContainer.addView(binding.root)
     }
 }

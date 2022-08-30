@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.gms.ads.nativead.NativeAdView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/bg_ad_outline_shape">
+
+        <androidx.constraintlayout.utils.widget.ImageFilterView
+            android:id="@+id/ifv_ad_icon"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_margin="12dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/tv_ad"
+            style="@style/CustomTextViewAttribution"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="16dp"
+            android:text="@string/ad"
+            app:layout_constraintBottom_toBottomOf="@+id/tv_title"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/tv_title" />
+
+        <TextView
+            android:id="@+id/tv_title"
+            style="@style/CustomTextViewTitle"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp"
+            app:layout_constraintBottom_toTopOf="@+id/tv_body"
+            app:layout_constraintEnd_toStartOf="@+id/tv_ad"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/ifv_ad_icon"
+            app:layout_constraintTop_toTopOf="@+id/ifv_ad_icon"
+            app:layout_constraintVertical_chainStyle="packed"
+            tools:text="@tools:sample/lorem" />
+
+        <TextView
+            android:id="@+id/tv_body"
+            style="@style/CustomTextViewBody"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            app:layout_constraintBottom_toBottomOf="@+id/ifv_ad_icon"
+            app:layout_constraintEnd_toEndOf="@+id/tv_ad"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="@+id/tv_title"
+            app:layout_constraintTop_toBottomOf="@+id/tv_title"
+            tools:text="@tools:sample/lorem/random" />
+
+        <com.google.android.gms.ads.nativead.MediaView
+            android:id="@+id/mv_Media"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginVertical="8dp"
+            app:layout_constraintBottom_toTopOf="@id/btn_action"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/ifv_ad_icon"
+            app:layout_constraintVertical_bias="0.0" />
+
+        <Button
+            android:id="@+id/btn_action"
+            style="@style/CustomButton"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="12dp"
+            android:layout_marginBottom="8dp"
+            android:background="@color/purple_500"
+            android:lines="1"
+            android:text="@string/visit_site"
+            android:textSize="16sp"
+            android:clickable="false"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</com.google.android.gms.ads.nativead.NativeAdView>
