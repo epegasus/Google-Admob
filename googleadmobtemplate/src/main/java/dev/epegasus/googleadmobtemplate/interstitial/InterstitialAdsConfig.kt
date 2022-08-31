@@ -15,8 +15,11 @@ import dev.epegasus.googleadmobtemplate.interstitial.interfaces.OnInterstitialRe
 
 class InterstitialAdsConfig(private val context: Context) {
 
+    companion object {
+        private var interstitialAd: InterstitialAd? = null
+    }
+
     private var adRequest: AdRequest = AdRequest.Builder().build()
-    private var interstitialAd: InterstitialAd? = null
     private var isLoadingAd = false
 
     fun checkInterstitialAd(interstitialAdID: String, isInternetConnected: Boolean, isRemoteConfigActive: Boolean, isBillingRequired: Boolean, listener: InterstitialOnLoadCallBack, onResponseListener: OnInterstitialResponseListener) {
