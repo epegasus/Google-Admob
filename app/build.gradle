@@ -22,20 +22,21 @@ android {
     }
 
     buildTypes {
-        release {
-            resValue 'string', 'admob_app_id', '""'
-            resValue 'string', 'admob_native_id', '""'
-            resValue 'string', 'admob_interstitial_id', '""'
+
+        debug {
+            resValue 'string', 'admob_app_id', '"ca-app-pub-3940256099942544~3347511713"'
+            resValue 'string', 'admob_native_id', '"ca-app-pub-3940256099942544/2247696110"'
+            resValue 'string', 'admob_interstitial_id', '"ca-app-pub-3940256099942544/1033173712"'
 
             minifyEnabled true
             shrinkResources true
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
 
-        debug {
-            resValue 'string', 'admob_app_id', '"ca-app-pub-3940256099942544~3347511713"'
-            resValue 'string', 'admob_native_id', '"ca-app-pub-3940256099942544/2247696110"'
-            resValue 'string', 'admob_interstitial_id', '"ca-app-pub-3940256099942544/1033173712"'
+        release {
+            resValue 'string', 'admob_app_id', '""'
+            resValue 'string', 'admob_native_id', '""'
+            resValue 'string', 'admob_interstitial_id', '""'
 
             minifyEnabled true
             shrinkResources true
