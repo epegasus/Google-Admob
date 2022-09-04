@@ -16,6 +16,8 @@
         <entry key="..\:/Users/Hamza/AndroidStudioProjects/Modules/GoogleAdMob/googleadmobtemplate/src/main/res/layout/native_medium.xml" value="0.33" />
         <entry key="..\:/Users/Hamza/AndroidStudioProjects/Modules/GoogleAdMob/nativetemplates/src/main/res/layout/gnt_medium_template_view.xml" value="0.32592592592592595" />
         <entry key="..\:/Users/Hamza/AndroidStudioProjects/Modules/GoogleAdMob/nativetemplates/src/main/res/layout/gnt_small_template_view_exit.xml" value="0.20052083333333334" />
+        <entry key="app/src/main/res/layout/activity_main.xml" value="0.28229166666666666" />
+        <entry key="app/src/main/res/layout/inc_native_loading.xml" value="0.28229166666666666" />
       </map>
     </option>
   </component>
