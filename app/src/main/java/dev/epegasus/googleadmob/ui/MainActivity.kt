@@ -35,7 +35,7 @@ class MainActivity : AppCompatActivity() {
 
     private fun loadNativeAd() {
         val nativeAdID = resources.getString(R.string.admob_native_id)
-        nativeAdsConfig.checkNativeAd(nativeAdID, internetHandler.isInternetConnected, true, sharedPreferences.isBillingRequired, binding.clNativeContainer, binding.incNativeLoadingSplash.root, object : OnNativeResponseListener {
+        nativeAdsConfig.checkNativeAd(nativeAdID, internetHandler.isInternetConnected, true, sharedPreferences.isBillingRequired, binding.flNativeContainer, binding.incNativeLoadingSplash.root, object : OnNativeResponseListener {
             override fun onResponse() {
 
             }

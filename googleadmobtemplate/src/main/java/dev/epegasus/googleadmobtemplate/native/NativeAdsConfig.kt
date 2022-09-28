@@ -21,7 +21,7 @@ class NativeAdsConfig(private val context: Context) {
 
     fun checkNativeAd(
         nativeAdID: String, isInternetConnected: Boolean, isRemoteConfig: Boolean, isBillingRequired: Boolean,
-        cl_ad_container: FrameLayout, ll_loading: LinearLayout,
+        flAdContainer: FrameLayout, llLoading: LinearLayout,
         onResponseListener: OnNativeResponseListener,
         onNativeAdLoad: OnNativeAdLoad,
     ) {
@@ -34,22 +34,22 @@ class NativeAdsConfig(private val context: Context) {
                         nativeAd.destroy()
                         return@forNativeAd
                     }
-                    populateLayout(cl_ad_container, binding, nativeAd)
+                    populateLayout(flAdContainer, binding, nativeAd)
                     onNativeAdLoad.onNativeAdLoad(nativeAd)
                 }
                 .withAdListener(object : AdListener() {
                     override fun onAdFailedToLoad(loadAdError: LoadAdError) {
                         super.onAdFailedToLoad(loadAdError)
                         showAdsLog(context, "checkNativeAd", "onAdFailedToLoad", loadAdError.message)
-                        cl_ad_container.removeAllViews()
-                        cl_ad_container.visibility = View.GONE
+                        flAdContainer.removeAllViews()
+                        flAdContainer.visibility = View.GONE
                         onResponseListener.onResponse()
                     }
 
                     override fun onAdLoaded() {
                         super.onAdLoaded()
                         showAdsLog(context, "checkNativeAd", "onAdLoaded", "loaded")
-                        ll_loading.visibility = View.GONE
+                        llLoading.visibility = View.GONE
                         onResponseListener.onResponse()
                     }
                 })
@@ -57,8 +57,8 @@ class NativeAdsConfig(private val context: Context) {
             adLoader.loadAd(AdManagerAdRequest.Builder().build())
         } else {
             showAdsLog(context, "checkNativeAd", "else", "called")
-            cl_ad_container.removeAllViews()
-            cl_ad_container.visibility = View.GONE
+            flAdContainer.removeAllViews()
+            flAdContainer.visibility = View.GONE
             onResponseListener.onResponse()
         }
     }
