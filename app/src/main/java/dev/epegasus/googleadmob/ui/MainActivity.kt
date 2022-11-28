@@ -7,6 +7,7 @@ import dev.epegasus.googleadmob.R
 import dev.epegasus.googleadmob.databinding.ActivityMainBinding
 import dev.epegasus.googleadmob.helper.managers.InternetHandler
 import dev.epegasus.googleadmob.helper.utils.SharedPreferencesUtils
+import dev.epegasus.googleadmobtemplate.banner.BannerAdsConfig
 import dev.epegasus.googleadmobtemplate.interstitial.InterstitialAdsConfig
 import dev.epegasus.googleadmobtemplate.interstitial.interfaces.InterstitialOnLoadCallBack
 import dev.epegasus.googleadmobtemplate.interstitial.interfaces.InterstitialOnShowCallBack
@@ -18,6 +19,7 @@ import dev.epegasus.googleadmobtemplate.native.interfaces.OnNativeResponseListen
 class MainActivity : AppCompatActivity() {
 
     private val binding by lazy { ActivityMainBinding.inflate(layoutInflater) }
+    private val bannerAdsConfig by lazy { BannerAdsConfig(this) }
     private val nativeAdsConfig by lazy { NativeAdsConfig(this) }
     private val interstitialAdsConfig by lazy { InterstitialAdsConfig(this) }
     private val sharedPreferences by lazy { SharedPreferencesUtils(this) }
@@ -29,8 +31,29 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
 
+        loadBannerAd()
         loadNativeAd()
         loadInterstitialAd()
+    }
+
+    override fun onPause() {
+        bannerAdsConfig.onPause()
+        super.onPause()
+    }
+
+    override fun onResume() {
+        super.onResume()
+        bannerAdsConfig.onResume()
+    }
+
+    private fun loadBannerAd() {
+        bannerAdsConfig.checkAndLoadBanner(
+            resources.getString(R.string.admob_banner_id),
+            internetHandler.isInternetConnected,
+            true,
+            sharedPreferences.isBillingRequired,
+            binding.flBannerContainer
+        )
     }
 
     private fun loadNativeAd() {
@@ -83,6 +106,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     override fun onDestroy() {
+        bannerAdsConfig.onDestroy()
         super.onDestroy()
         nativeAd?.destroy()
         nativeAd = null

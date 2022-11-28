@@ -25,6 +25,7 @@ android {
 
         debug {
             resValue 'string', 'admob_app_id', '"ca-app-pub-3940256099942544~3347511713"'
+            resValue 'string', 'admob_banner_id', '"ca-app-pub-3940256099942544/9214589741"'
             resValue 'string', 'admob_native_id', '"ca-app-pub-3940256099942544/2247696110"'
             resValue 'string', 'admob_interstitial_id', '"ca-app-pub-3940256099942544/1033173712"'
 
@@ -35,6 +36,7 @@ android {
 
         release {
             resValue 'string', 'admob_app_id', '""'
+            resValue 'string', 'admob_banner_id', '""'
             resValue 'string', 'admob_native_id', '""'
             resValue 'string', 'admob_interstitial_id', '""'
 
