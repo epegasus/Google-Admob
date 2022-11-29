@@ -6,12 +6,15 @@ import android.view.LayoutInflater
 import android.view.View
 import android.widget.FrameLayout
 import android.widget.LinearLayout
+import androidx.core.content.ContextCompat
+import androidx.core.graphics.drawable.toDrawable
 import com.google.android.gms.ads.AdListener
 import com.google.android.gms.ads.AdLoader
 import com.google.android.gms.ads.LoadAdError
 import com.google.android.gms.ads.admanager.AdManagerAdRequest
 import com.google.android.gms.ads.nativead.NativeAd
 import dev.epegasus.googleadmobtemplate.LogUtils.showAdsLog
+import dev.epegasus.googleadmobtemplate.R
 import dev.epegasus.googleadmobtemplate.databinding.AdmobNativeMediumBinding
 import dev.epegasus.googleadmobtemplate.databinding.AdmobNativeNormalBinding
 import dev.epegasus.googleadmobtemplate.native.interfaces.OnNativeAdLoad
@@ -183,6 +186,61 @@ class NativeAdsConfig(private val context: Context) {
         }
         clAdContainer.removeAllViews()
         clAdContainer.addView(binding.root)
+    }
+
+    /* ------------------------------------- PreLoad Strategy ------------------------------------- */
+
+
+    private var nativeAdPreLoader: NativeAd? = null
+
+    fun checkNativeAdPreLoader(nativeAdID: String, isInternetConnected: Boolean, isRemoteConfig: Int, isBillingRequired: Boolean, onResponseListener: OnNativeResponseListener) {
+        if (isInternetConnected && (isRemoteConfig == 1) && isBillingRequired) {
+            val adLoader: AdLoader = AdLoader.Builder(context, nativeAdID)
+                .forNativeAd { nativeAd ->
+                    if ((context as Activity).isDestroyed) {
+                        showAdsLog(context, "checkNativeAdPreLoader", "isDestroyed", "Destroying Native, fragment not found")
+                        nativeAd.destroy()
+                        return@forNativeAd
+                    }
+                    nativeAdPreLoader = nativeAd
+                }
+                .withAdListener(object : AdListener() {
+                    override fun onAdFailedToLoad(loadAdError: LoadAdError) {
+                        super.onAdFailedToLoad(loadAdError)
+                        showAdsLog(context, "checkNativeAdPreLoader", "onAdFailedToLoad", loadAdError.message)
+                        onResponseListener.onResponse()
+                    }
+
+                    override fun onAdLoaded() {
+                        super.onAdLoaded()
+                        showAdsLog(context, "checkNativeAdPreLoader", "onAdLoaded", "loaded")
+                        onResponseListener.onResponse()
+                    }
+                })
+                .build()
+            adLoader.loadAd(AdManagerAdRequest.Builder().build())
+        } else {
+            showAdsLog(context, "checkNativeAdPreLoader", "else", "called")
+            onResponseListener.onResponse()
+        }
+    }
+
+    fun destroyPreloaded() {
+        showAdsLog(context, "NativeAdsConfig", "destroyPreloaded", "called")
+        nativeAdPreLoader?.destroy()
+        nativeAdPreLoader = null
+    }
+
+    fun showPreloadedNative(flAdContainer: FrameLayout, ll_loading: LinearLayout, isBorder: Boolean) {
+        nativeAdPreLoader?.let {
+            ll_loading.visibility = View.GONE
+            val binding = AdmobNativeMediumBinding.inflate(LayoutInflater.from(context))
+            if (!isBorder) binding.clContainer.background = ContextCompat.getColor(context, R.color.lightGray).toDrawable()
+            populateLayout(flAdContainer, binding, it)
+        } ?: kotlin.run {
+            flAdContainer.removeAllViews()
+            flAdContainer.visibility = View.INVISIBLE
+        }
     }
 
 }

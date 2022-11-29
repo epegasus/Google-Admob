@@ -14,7 +14,7 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <include
-            android:id="@+id/inc_native_loading_Splash"
+            android:id="@+id/inc_native_loading"
             layout="@layout/inc_native_loading" />
 
     </FrameLayout>
@@ -22,14 +22,13 @@
     <FrameLayout
         android:id="@+id/fl_banner_container"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/_400sdp"
+        android:layout_height="wrap_content"
         android:layout_margin="8dp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintStart_toStartOf="parent">
 
         <include
-            android:id="@+id/inc_native_loading_Splash"
             layout="@layout/inc_native_loading" />
 
     </FrameLayout>
