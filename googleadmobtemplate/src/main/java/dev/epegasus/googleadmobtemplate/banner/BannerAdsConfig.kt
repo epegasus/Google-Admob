@@ -83,6 +83,7 @@ class BannerAdsConfig(private val context: Context) {
             // Code to be executed when an ad request fails.
             showAdsLog(context, "bannerAdListener", "onAdFailedToLoad", "Called")
             frameLayout?.removeAllViews()
+            isLoading = false
         }
 
         override fun onAdImpression() {
@@ -95,6 +96,7 @@ class BannerAdsConfig(private val context: Context) {
             showAdsLog(context, "bannerAdListener", "onAdLoaded", "Called")
             frameLayout?.removeAllViews()
             frameLayout?.addView(adView)
+            isLoading = false
         }
 
         override fun onAdOpened() {
