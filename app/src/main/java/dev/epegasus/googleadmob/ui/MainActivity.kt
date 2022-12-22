@@ -8,6 +8,7 @@ import dev.epegasus.googleadmob.databinding.ActivityMainBinding
 import dev.epegasus.googleadmob.helper.managers.InternetHandler
 import dev.epegasus.googleadmob.helper.utils.SharedPreferencesUtils
 import dev.epegasus.googleadmobtemplate.banner.BannerAdsConfig
+import dev.epegasus.googleadmobtemplate.banner.enums.CollapsiblePositionType
 import dev.epegasus.googleadmobtemplate.interstitial.InterstitialAdsConfig
 import dev.epegasus.googleadmobtemplate.interstitial.interfaces.InterstitialOnLoadCallBack
 import dev.epegasus.googleadmobtemplate.interstitial.interfaces.InterstitialOnShowCallBack
@@ -31,7 +32,8 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
 
-        loadBannerAd()
+        //loadBannerAd()
+        loadCollapsibleBannerAd()
         loadNativeAd()
         loadInterstitialAd()
     }
@@ -53,6 +55,17 @@ class MainActivity : AppCompatActivity() {
             true,
             sharedPreferences.isBillingRequired,
             binding.flBannerContainer
+        )
+    }
+
+    private fun loadCollapsibleBannerAd() {
+        bannerAdsConfig.checkAndLoadCollapsibleBanner(
+            resources.getString(R.string.admob_banner_collapsible_id),
+            internetHandler.isInternetConnected,
+            true,
+            sharedPreferences.isBillingRequired,
+            binding.flBannerContainer,
+            CollapsiblePositionType.bottom
         )
     }
 

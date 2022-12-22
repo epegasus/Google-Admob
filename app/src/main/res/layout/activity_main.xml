@@ -6,7 +6,7 @@
 
     <FrameLayout
         android:id="@+id/fl_native_container"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="@dimen/_400sdp"
         android:layout_margin="8dp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -21,7 +21,7 @@
 
     <FrameLayout
         android:id="@+id/fl_banner_container"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_margin="8dp"
         app:layout_constraintBottom_toBottomOf="parent"

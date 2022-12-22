@@ -4,17 +4,20 @@ import android.app.Activity
 import android.content.Context
 import android.hardware.display.DisplayManager
 import android.os.Build
+import android.os.Bundle
 import android.util.DisplayMetrics
 import android.view.Display
 import android.view.View
 import android.widget.FrameLayout
 import androidx.core.content.getSystemService
+import com.google.ads.mediation.admob.AdMobAdapter
 import com.google.android.gms.ads.AdListener
 import com.google.android.gms.ads.AdRequest
 import com.google.android.gms.ads.AdSize
 import com.google.android.gms.ads.AdView
 import com.google.android.gms.ads.LoadAdError
 import dev.epegasus.googleadmobtemplate.LogUtils.showAdsLog
+import dev.epegasus.googleadmobtemplate.banner.enums.CollapsiblePositionType
 
 class BannerAdsConfig(private val context: Context) {
 
@@ -55,12 +58,38 @@ class BannerAdsConfig(private val context: Context) {
             isLoading = true
 
             val adRequest = AdRequest.Builder().build()
-
             adView = AdView(context).also {
                 it.adUnitId = bannerAdID
                 it.setAdSize(adSize)
                 it.adListener = bannerAdListener
                 it.loadAd(adRequest)
+            }
+        } else {
+            showAdsLog(context, "checkAndLoadBanner", "BannerAd Failed", "Resistance occurs")
+            frameLayout.removeAllViews()
+        }
+    }
+
+    fun checkAndLoadCollapsibleBanner(bannerAdID: String, isInternetConnected: Boolean, isRemoteConfig: Boolean, isBillingRequired: Boolean, frameLayout: FrameLayout, collapsiblePositionType: CollapsiblePositionType) {
+        this.frameLayout = frameLayout
+
+        if (isLoading)
+            return
+
+        if (isInternetConnected && isRemoteConfig && isBillingRequired) {
+            showAdsLog(context, "checkAndLoadBanner", "BannerAd Loading", "Called")
+            isLoading = true
+
+            val bundle = Bundle().apply {
+                putString("collapsible", collapsiblePositionType.toString())
+            }
+            val ad = AdRequest.Builder().addNetworkExtrasBundle(AdMobAdapter::class.java, bundle)
+
+            adView = AdView(context).also {
+                it.adUnitId = bannerAdID
+                it.setAdSize(adSize)
+                it.adListener = bannerAdListener
+                it.loadAd(ad.build())
             }
         } else {
             showAdsLog(context, "checkAndLoadBanner", "BannerAd Failed", "Resistance occurs")
