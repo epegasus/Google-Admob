@@ -83,13 +83,13 @@ class BannerAdsConfig(private val context: Context) {
             val bundle = Bundle().apply {
                 putString("collapsible", collapsiblePositionType.toString())
             }
-            val ad = AdRequest.Builder().addNetworkExtrasBundle(AdMobAdapter::class.java, bundle)
+            val ad = AdRequest.Builder().addNetworkExtrasBundle(AdMobAdapter::class.java, bundle).build()
 
             adView = AdView(context).also {
                 it.adUnitId = bannerAdID
                 it.setAdSize(adSize)
                 it.adListener = bannerAdListener
-                it.loadAd(ad.build())
+                it.loadAd(ad)
             }
         } else {
             showAdsLog(context, "checkAndLoadBanner", "BannerAd Failed", "Resistance occurs")
