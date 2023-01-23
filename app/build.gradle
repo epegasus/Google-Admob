@@ -58,7 +58,6 @@ android {
 }
 
 dependencies {
-
     implementation project(path: ':googleadmobtemplate')
 
     implementation 'androidx.core:core-ktx:1.9.0'
