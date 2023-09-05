@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <com.google.android.material.card.MaterialCardView
+        style="@style/Widget.Material3.CardView.Filled"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="8dp"
+        tools:context=".native.NativeAdsConfig">
+
+        <com.google.android.gms.ads.nativead.NativeAdView
+            android:id="@+id/nativeAdView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:paddingBottom="12dp">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/mb_action"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="12dp"
+                    android:background="@drawable/bg_round_button"
+                    android:text="@string/visit_site"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    app:backgroundTint="@null"
+                    app:layout_constraintEnd_toEndOf="@+id/mtv_title"
+                    app:layout_constraintStart_toStartOf="@+id/ifv_ad_icon"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <com.google.android.gms.ads.nativead.MediaView
+                    android:id="@+id/mv_Media"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:layout_marginTop="12dp"
+                    app:layout_constraintDimensionRatio="h,16:9"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/mb_action"
+                    tools:background="@color/gray" />
+
+                <androidx.constraintlayout.utils.widget.ImageFilterView
+                    android:id="@+id/ifv_ad_icon"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:layout_marginStart="12dp"
+                    android:adjustViewBounds="true"
+                    app:layout_constraintBottom_toBottomOf="@+id/rb_ratings"
+                    app:layout_constraintDimensionRatio="h,1:1"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="@+id/mtv_title"
+                    app:round="6dp"
+                    tools:srcCompat="@tools:sample/avatars" />
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/mtv_ad"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="12dp"
+                    android:layout_marginTop="12dp"
+                    android:background="@drawable/bg_ad"
+                    android:includeFontPadding="false"
+                    android:padding="2dp"
+                    android:text="@string/ad"
+                    android:textSize="8sp"
+                    android:textStyle="bold"
+                    app:layout_constraintBottom_toBottomOf="@+id/mtv_title"
+                    app:layout_constraintStart_toEndOf="@+id/ifv_ad_icon"
+                    app:layout_constraintTop_toBottomOf="@+id/mv_Media"
+                    tools:ignore="SmallSp" />
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/mtv_title"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="4dp"
+                    android:layout_marginTop="12dp"
+                    android:layout_marginEnd="12dp"
+                    android:ellipsize="end"
+                    android:maxLines="1"
+                    android:textStyle="bold"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/mtv_ad"
+                    app:layout_constraintTop_toBottomOf="@+id/mv_Media"
+                    tools:text="@tools:sample/lorem" />
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/mtv_body"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:maxLines="2"
+                    android:textSize="12sp"
+                    app:layout_constraintEnd_toEndOf="@+id/mtv_title"
+                    app:layout_constraintStart_toStartOf="@+id/mtv_ad"
+                    app:layout_constraintTop_toBottomOf="@+id/mtv_title"
+                    tools:text="@tools:sample/lorem/random" />
+
+                <RatingBar
+                    android:id="@+id/rb_ratings"
+                    style="@style/Widget.AppCompat.RatingBar.Small"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="2dp"
+                    android:visibility="gone"
+                    app:layout_constraintStart_toStartOf="@+id/mtv_body"
+                    app:layout_constraintTop_toBottomOf="@+id/mtv_body"
+                    tools:visibility="visible" />
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/tv_google_play"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:text="@string/google_play"
+                    android:textSize="12sp"
+                    android:visibility="gone"
+                    app:layout_constraintBottom_toBottomOf="@+id/rb_ratings"
+                    app:layout_constraintStart_toEndOf="@+id/rb_ratings"
+                    app:layout_constraintTop_toTopOf="@+id/rb_ratings"
+                    tools:visibility="visible" />
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/tv_free"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:text="@string/free"
+                    android:textAllCaps="true"
+                    android:textSize="12sp"
+                    android:visibility="gone"
+                    app:layout_constraintBottom_toBottomOf="@+id/rb_ratings"
+                    app:layout_constraintStart_toEndOf="@+id/tv_google_play"
+                    app:layout_constraintTop_toTopOf="@+id/tv_google_play"
+                    tools:visibility="visible" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </com.google.android.gms.ads.nativead.NativeAdView>
+
+    </com.google.android.material.card.MaterialCardView>
+</layout>
