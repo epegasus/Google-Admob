@@ -7,10 +7,13 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleObserver
 import androidx.lifecycle.OnLifecycleEvent
 import androidx.lifecycle.ProcessLifecycleOwner
-import com.google.android.gms.ads.*
+import com.google.android.gms.ads.AdActivity
+import com.google.android.gms.ads.AdError
+import com.google.android.gms.ads.AdRequest
+import com.google.android.gms.ads.FullScreenContentCallback
+import com.google.android.gms.ads.LoadAdError
 import com.google.android.gms.ads.appopen.AppOpenAd
 import dev.epegasus.googleadmobtemplate.LogUtils.showAdsLog
-import dev.epegasus.googleadmobtemplate.R
 
 class AppOpenAdManager(private val app: Application) : LifecycleObserver, Application.ActivityLifecycleCallbacks {
 

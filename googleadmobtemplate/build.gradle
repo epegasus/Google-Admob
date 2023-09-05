@@ -4,16 +4,16 @@ plugins {
 }
 
 android {
-    compileSdk 33
+    namespace 'dev.epegasus.googleadmobtemplate'
+    compileSdk 34
 
     buildFeatures {
         viewBinding true
-        dataBinding true
     }
 
     defaultConfig {
         minSdk 23
-        targetSdk 33
+        targetSdk 34
     }
 
     buildTypes {
@@ -28,25 +28,28 @@ android {
         }
     }
     compileOptions {
-        sourceCompatibility JavaVersion.VERSION_1_8
-        targetCompatibility JavaVersion.VERSION_1_8
+        sourceCompatibility JavaVersion.VERSION_17
+        targetCompatibility JavaVersion.VERSION_17
     }
     kotlinOptions {
-        jvmTarget = '1.8'
+        jvmTarget = '17'
     }
 }
 
 dependencies {
 
-    implementation 'androidx.core:core-ktx:1.9.0'
-    implementation 'androidx.appcompat:appcompat:1.6.0'
-    implementation 'com.google.android.material:material:1.7.0'
+    implementation 'androidx.core:core-ktx:1.10.1'
+    implementation 'androidx.appcompat:appcompat:1.6.1'
+    implementation 'com.google.android.material:material:1.9.0'
     implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
 
     // Admob ads
-    implementation 'com.google.android.gms:play-services-ads:21.4.0'
+    implementation 'com.google.android.gms:play-services-ads:22.3.0'
 
     // sdp & ssp
     implementation 'com.intuit.sdp:sdp-android:1.1.0'
     implementation 'com.intuit.ssp:ssp-android:1.1.0'
+
+    // LifeCycle
+    implementation 'androidx.lifecycle:lifecycle-process:2.6.1'
 }
